@@ -34,6 +34,8 @@ export default class Prompt extends Component {
     textInputProps: PropTypes.object,
     accessible: PropTypes.bool,
     inputAccessibilityLabel: PropTypes.string,
+    cancelButtonAccessibilityLabel: PropTypes.string,
+    submitButtonAccessibilityLabel: PropTypes.string,
   };
 
   static defaultProps = {
@@ -54,6 +56,8 @@ export default class Prompt extends Component {
     onChangeText: () => {},
     accessible: true,
     inputAccessibilityLabel: undefined,
+    cancelButtonAccessibilityLabel: undefined,
+    submitButtonAccessibilityLabel: undefined,
   };
 
   state = {
@@ -107,6 +111,8 @@ export default class Prompt extends Component {
       inputStyle,
       accessible,
       inputAccessibilityLabel,
+      cancelButtonAccessibilityLabel,
+      submitButtonAccessibilityLabel,
     } = this.props;
     return (
       <View style={styles.dialog} key="prompt">
@@ -131,7 +137,7 @@ export default class Prompt extends Component {
           </View>
           <View style={[styles.dialogFooter, { borderColor }]}>
             <TouchableWithoutFeedback onPress={this._onCancelPress}
-                                      accessible={accessible} accessibilityLabel={'Cancel Button'}>
+                                      accessible={accessible} accessibilityLabel={cancelButtonAccessibilityLabel}>
               <View style={[styles.dialogAction, buttonStyle, cancelButtonStyle]}>
                 <Text style={[styles.dialogActionText, buttonTextStyle, cancelButtonTextStyle]}>
                   {cancelText}
@@ -139,7 +145,7 @@ export default class Prompt extends Component {
               </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback onPress={this._onSubmitPress}
-                                      accessible={accessible} accessibilityLabel={'Submit Button'}>
+                                      accessible={accessible} accessibilityLabel={submitButtonAccessibilityLabel}>
               <View style={[styles.dialogAction, buttonStyle, submitButtonStyle]}>
                 <Text style={[styles.dialogActionText, buttonTextStyle, submitButtonTextStyle]}>
                   {submitText}
