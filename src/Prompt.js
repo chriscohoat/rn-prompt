@@ -32,6 +32,8 @@ export default class Prompt extends Component {
     cancelButtonTextStyle: PropTypes.object,
     inputStyle: PropTypes.object,
     textInputProps: PropTypes.object,
+    accessible: PropTypes.bool,
+    inputAccessibilityLabel: PropTypes.string,
   };
 
   static defaultProps = {
@@ -50,6 +52,8 @@ export default class Prompt extends Component {
     cancelButtonTextStyle: {},
     inputStyle: {},
     onChangeText: () => {},
+    accessible: true,
+    inputAccessibilityLabel: undefined,
   };
 
   state = {
@@ -100,7 +104,9 @@ export default class Prompt extends Component {
       submitButtonTextStyle,
       cancelButtonStyle,
       cancelButtonTextStyle,
-      inputStyle
+      inputStyle,
+      accessible,
+      inputAccessibilityLabel,
     } = this.props;
     return (
       <View style={styles.dialog} key="prompt">
@@ -119,17 +125,21 @@ export default class Prompt extends Component {
               placeholder={placeholder}
               autoFocus={true}
               underlineColorAndroid="white"
+              accessible={accessible}
+              accessibilityLabel={inputAccessibilityLabel || undefined}
               {...this.props.textInputProps} />
           </View>
           <View style={[styles.dialogFooter, { borderColor }]}>
-            <TouchableWithoutFeedback onPress={this._onCancelPress}>
+            <TouchableWithoutFeedback onPress={this._onCancelPress}
+                                      accessible={accessible} accessibilityLabel={'Cancel Button'}>
               <View style={[styles.dialogAction, buttonStyle, cancelButtonStyle]}>
                 <Text style={[styles.dialogActionText, buttonTextStyle, cancelButtonTextStyle]}>
                   {cancelText}
                 </Text>
               </View>
             </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={this._onSubmitPress}>
+            <TouchableWithoutFeedback onPress={this._onSubmitPress}
+                                      accessible={accessible} accessibilityLabel={'Submit Button'}>
               <View style={[styles.dialogAction, buttonStyle, submitButtonStyle]}>
                 <Text style={[styles.dialogActionText, buttonTextStyle, submitButtonTextStyle]}>
                   {submitText}
